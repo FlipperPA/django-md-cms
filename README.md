@@ -8,6 +8,6 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 
 ## Settings:
 * DJANGO_MD_CMS_ROOT
-The root location of files within the CMS.
+    * The root location of files within the CMS.
 `DJANGO_MD_CMS_ROOT = MEDIA_ROOT + 'md-cms/'`
 
