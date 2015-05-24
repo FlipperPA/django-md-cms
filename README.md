@@ -6,8 +6,9 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 * All source content will be in markdown, making it completely portable
 * Easy to use caching layer with python-memcached
 
+
 ## Settings:
-* DJANGO_MD_CMS_ROOT
-    * The root location of files within the CMS.
-`DJANGO_MD_CMS_ROOT = MEDIA_ROOT + 'md-cms/'`
+* DJANGO_MD_CMS_ROOT: the root location of files accessible within the CMS. Examples:
+** `DJANGO_MD_CMS_ROOT = MEDIA_ROOT + 'md-cms/'`
+** `DJANGO_MD_CMS_ROOT = '/var/md-cms-files/'`
 
