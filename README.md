@@ -6,7 +6,7 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 * All source content will be in markdown, making it completely portable
 * Easy to use caching layer with python-memcached
 * Ability to include a markdown file within a Django template:
-    * `{% md-cms "about/welcome.md" %}
+    * `{% md-cms "about/welcome.md" %}`
 
 
 ## Settings:
