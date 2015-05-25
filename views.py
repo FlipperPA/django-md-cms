@@ -2,7 +2,6 @@ from django.views.generic.base import TemplateView
 
 from markdown import markdown
 
-
 class MdCMSView(TemplateView):
     """ Render a Markdown file as HTML within a Django template. """
 
