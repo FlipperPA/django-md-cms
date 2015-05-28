@@ -11,8 +11,7 @@ class MdCMSView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(MdCMSView, self).get_context_data(**kwargs)
 
-        f = open('/vagrant/html/markdown_cms/md_cms/README.md', 'r')
-        context['markdown_text'] = markdown(f.read())
-        f.close()
+        with open('/vagrant/html/markdown_cms/md_cms/README.md', 'r') as f:
+            context['markdown_text'] = markdown(f.read())
 
         return context
