@@ -9,6 +9,11 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 * Ability to include a markdown file as a fragment within a Django template:
     * `{% md-cms "about/welcome.md" %}`
 
+## Requirements:
+* python-markdown
+* django-pagedown https://github.com/timmyomahony/django-pagedown
+* django-markdown-deux https://github.com/trentm/django-markdown-deux
+
 ## Installation:
 * Install via pip:
     * `pip install django-md-cms`
