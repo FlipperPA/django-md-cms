@@ -1,0 +1,4 @@
+bleach==1.4.1
+Django==1.8.2
+django-pagedown==0.1.0
+Markdown==2.6.2
