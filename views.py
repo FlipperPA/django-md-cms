@@ -12,6 +12,11 @@ class MdCMSView(TemplateView):
     template_name = "md_cms/index.html"
 
     def get_md_cms_file(self):
+        """ 
+        Determine the flat file name by the HTTP header PATH_INFO.
+        If PATH_INFO is a directory, append the default file name from settings.
+        """
+
         md_cms_file = settings.MD_CMS_ROOT + self.request.META['PATH_INFO']
 
         if(md_cms_file[-1:] == '/'):
