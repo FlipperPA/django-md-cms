@@ -26,3 +26,12 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
     * `DJANGO_MD_CMS_ROOT = '/var/md_cms_content'`
 * MD_CMS_DEFAULT_FILE: if a path is provided with no file, the default file name to use.
     * MD_CMS_DEFAULT_FILE = 'index.md'
+
+## Example 1:
+
+This example shows how to have django-md-cms control all the content for your site.
+
+    django-admin.py startproject myproject
+    pip install django-md-cms
+    cd myproject && python manage.py migrate
+    python manage.py createsuperuser
