@@ -35,3 +35,7 @@ This example shows how to have django-md-cms control all the content for your si
     pip install django-md-cms
     cd myproject && python manage.py migrate
     python manage.py createsuperuser
+
+Then, edit your `uls.py` file, to look something like this:
+
+    
