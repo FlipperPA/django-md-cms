@@ -38,4 +38,22 @@ This example shows how to have django-md-cms control all the content for your si
 
 Then, edit your `uls.py` file, to look something like this:
 
-    
+    from django.conf.urls import include, url
+    from django.contrib import admin
+    from md_cms.views import MdCMSView
+
+    urlpatterns = [
+        url(r'^admin/', include(admin.site.urls)),
+        url(r'^([A-Za-z0-9-/]*)/$', MdCMSView.as_view(), name='pages'),
+    ]
+
+This set of patterns first looks for the Django Admin, then for any HTTP_INFO pattern matching any letter (upper or lowercase), a hyphen ('-'), or a foreward slash ('/'). These will result in the creation of valid system paths and files.
+
+
+## A Note About URLs: /this-page != /this_page/
+
+Trailing slashes matter in your URLs! The way the logic is constructed is as follows:
+
+* /this-page will create a file named `DJANGO_MD_CMS_ROOT + '/this-page.md'`
+* /this-page/ will create a directory named `DJANGO_MD_CMS_ROOT + '/this-page/'` and a file named `DJANGO_MD_CMS_ROOT + '/this-page/index.md'`
+
