@@ -10,7 +10,7 @@ from markdown import markdown
 class MdCMSView(TemplateView):
     """ Render a Markdown file as HTML within a Django template. """
 
-    template_name = "md_cms/index.html"
+    template_name = "index.html"
 
     def get_md_cms_file(self):
         """ 
