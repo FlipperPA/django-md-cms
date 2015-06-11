@@ -1,6 +1,7 @@
 import os, re
 
 from django.conf import settings
+from django.http import Http404
 from django.views.generic.base import TemplateView
 
 from markdown import markdown
@@ -56,5 +57,7 @@ class MdCMSView(TemplateView):
                 else:
                     # Give option to create the file
                     context['markdown_text'] = self.request.user.get_full_name() + ': No file found. [ <a href="?create=1">Create a Page</a> ]'
+            else:
+                raise Http404('Sorry, the requested page was not found.')
 
         return context
