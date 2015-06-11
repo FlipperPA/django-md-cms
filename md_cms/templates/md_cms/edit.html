@@ -1,7 +1,11 @@
 <!DOCTYPE html5>
 <html>
-<body>
-<!-- Do we want a separate template for the editor? -->
-{% autoescape off %}{{ markdown_text }}{% endautoescape %}
-</body>
+    <head>
+        {{ form.media }}
+    </head>
+    <body>
+        <form ...>
+            {{ form }}
+        </form>
+    </body>
 </html>
