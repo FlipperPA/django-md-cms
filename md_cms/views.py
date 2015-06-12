@@ -33,6 +33,8 @@ class MdCMSView(TemplateView):
 
         if self.request.user and self.request.user.is_superuser:
             context['md_cms_edit'] = True
+
+            # Move to template - which CSS style?
             context['markdown_text'] = self.request.user.get_full_name() + ': [ <a href="?edit=1">Edit Page</a> ]'
         else:
             context['markdown_text'] = ''
@@ -55,7 +57,7 @@ class MdCMSView(TemplateView):
                         f.write(context['markdown_text'])
                         context['markdown_text'] = markdown(context['markdown_text'])
                 else:
-                    # Give option to create the file
+                    # Give option to create the file - move to template
                     context['markdown_text'] = self.request.user.get_full_name() + ': No file found. [ <a href="?create=1">Create a Page</a> ]'
             else:
                 raise Http404('Sorry, the requested page was not found.')
