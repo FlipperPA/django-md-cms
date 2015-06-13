@@ -1,6 +1,9 @@
 <!DOCTYPE html5>
 <html>
 <body>
+{% if md_cms_edit %}
+<div class="md_cms edit">{{ user.get_full_name|default:user.username }}: [ <a href="{{ md_cms_edit_suffix }}">Edit Page</a> ]</div>
+{% endif %}
 {% autoescape off %}{{ markdown_text }}{% endautoescape %}
 </body>
 </html>

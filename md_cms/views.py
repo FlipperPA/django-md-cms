@@ -33,22 +33,23 @@ class MdCMSView(TemplateView):
 
         if self.request.user and self.request.user.is_superuser:
             context['md_cms_edit'] = True
+            context['md_cms_edit_suffix'] = settings.MD_CMS_EDIT_SUFFIX
 
             # Move to template - which CSS style?
-            context['markdown_text'] = self.request.user.get_full_name() + ': [ <a href="?edit=1">Edit Page</a> ]'
-        else:
-            context['markdown_text'] = ''
+#            context['markdown_text'] = self.request.user.get_full_name() + ': [ <a href="?edit=1">Edit Page</a> ]'
+#        else:
+#            context['markdown_text'] = ''
 
         try:
             # The file already exists
             with open(md_cms_file, 'r') as f:
-                context['markdown_text'] += markdown(f.read())
+                context['markdown_text'] = markdown(f.read())
         except:
             # The file does not exist
             if self.request.user and self.request.user.is_superuser:
                 context['md_cms_edit'] = True
 
-                if self.request.GET and self.request.GET['create']:
+                if self.request.GET and self.request.GET['edit']:
                     # Create the file
                     if not os.path.exists(os.path.dirname(md_cms_file)):
                         os.makedirs(os.path.dirname(md_cms_file))
@@ -56,9 +57,9 @@ class MdCMSView(TemplateView):
                         context['markdown_text'] = '# ' + re.sub(' |\/', ' ', self.request.META['PATH_INFO']).title().rstrip() + '\r\n'
                         f.write(context['markdown_text'])
                         context['markdown_text'] = markdown(context['markdown_text'])
-                else:
+#                else:
                     # Give option to create the file - move to template
-                    context['markdown_text'] = self.request.user.get_full_name() + ': No file found. [ <a href="?create=1">Create a Page</a> ]'
+#                    context['markdown_text'] = self.request.user.get_full_name() + ': No file found. [ <a href="?create=1">Create a Page</a> ]'
             else:
                 raise Http404('Sorry, the requested page was not found.')
 
