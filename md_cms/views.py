@@ -2,15 +2,17 @@ import os, re
 
 from django.conf import settings
 from django.http import Http404
-from django.views.generic.base import TemplateView
+from django.views.generic.edit import FormView
 
 from markdown import markdown
+from md_cms.forms import MdCMSForm
 
-
-class MdCMSView(TemplateView):
+class MdCMSView(FormView):
     """ Render a Markdown file as HTML within a Django template. """
 
     template_name = "index.html"
+    form_class = MdCMSForm
+    success_url = '/'
 
     def get_md_cms_file(self):
         """ 
@@ -25,12 +27,28 @@ class MdCMSView(TemplateView):
 
         return md_cms_file
 
+    def create_md_cms_file(md_cms_file):
+        """
+        Create the appropriate directories if necessary given the md_cms_file path, and
+        create the new file with expanding PATH_INFO as a H1.
+        """
+
+        if not os.path.exists(os.path.dirname(md_cms_file)):
+            os.makedirs(os.path.dirname(md_cms_file))
+
+        markdown_text = '# ' + re.sub(' |\/', ' ', self.request.META['PATH_INFO']).title().rstrip() + '\r\n'
+
+        with open(md_cms_file, "w") as f:
+            f.write(markdown_text)
+
+        return markdown(markdown_text)
+
     def get_context_data(self, **kwargs):
         context = super(MdCMSView, self).get_context_data(**kwargs)
 
         # Determine file name by HTTP header PATH_INFO
         md_cms_file = self.get_md_cms_file()
-
+        print('XXXXXXXXXXXXXXXXX')
         if self.request.user and self.request.user.is_superuser:
             context['md_cms_edit'] = True
             context['md_cms_edit_suffix'] = settings.MD_CMS_EDIT_SUFFIX
@@ -51,12 +69,7 @@ class MdCMSView(TemplateView):
 
                 if self.request.GET and self.request.GET['edit']:
                     # Create the file
-                    if not os.path.exists(os.path.dirname(md_cms_file)):
-                        os.makedirs(os.path.dirname(md_cms_file))
-                    with open(md_cms_file, "w") as f:
-                        context['markdown_text'] = '# ' + re.sub(' |\/', ' ', self.request.META['PATH_INFO']).title().rstrip() + '\r\n'
-                        f.write(context['markdown_text'])
-                        context['markdown_text'] = markdown(context['markdown_text'])
+                    context['markdown_text'] = create_md_cms_file(md_cms_file)
 #                else:
                     # Give option to create the file - move to template
 #                    context['markdown_text'] = self.request.user.get_full_name() + ': No file found. [ <a href="?create=1">Create a Page</a> ]'
