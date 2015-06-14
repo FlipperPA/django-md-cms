@@ -14,6 +14,22 @@ class MdCMSView(FormView):
     form_class = MdCMSForm
     success_url = '/'
 
+    def form_valid(self, form):
+        """
+        FORM is valid, given the definition.
+        Write the file,  and return an HttpResponse.
+        """
+
+        # Write file here
+
+        return super(MdCMSView, self).form_valid(form)
+
+    def get_initial(self):
+        pass
+#        return {
+#            'md_cms_form': self.md_cms_file
+#        }
+
     def get_md_cms_file(self):
         """ 
         Determine the flat file name by the HTTP header PATH_INFO.
@@ -27,7 +43,16 @@ class MdCMSView(FormView):
 
         return md_cms_file
 
-    def create_md_cms_file(md_cms_file):
+    def get_md_cms_file_content(self, md_cms_file):
+        try:
+            # The file already exists
+            with open(md_cms_file, 'r') as f:
+                return markdown(f.read())
+        except:
+            # The file does not exist
+            return False
+
+    def create_md_cms_file(self, md_cms_file):
         """
         Create the appropriate directories if necessary given the md_cms_file path, and
         create the new file with expanding PATH_INFO as a H1.
@@ -59,9 +84,7 @@ class MdCMSView(FormView):
 #            context['markdown_text'] = ''
 
         try:
-            # The file already exists
-            with open(md_cms_file, 'r') as f:
-                context['markdown_text'] = markdown(f.read())
+            context['markdown_text'] = get_md_cms_file_content(self, md_cms_file)
         except:
             # The file does not exist
             if self.request.user and self.request.user.is_superuser:
