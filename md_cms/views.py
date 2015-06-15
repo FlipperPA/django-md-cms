@@ -24,6 +24,7 @@ class MdCMSView(FormView):
 
         return super(MdCMSView, self).form_valid(form)
 
+    # Populate initial data from flatfile
     def get_initial(self):
         pass
 #        return {
