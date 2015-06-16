@@ -23,11 +23,12 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 
 ## Settings:
 * MD_CMS_ROOT: the root location of files accessible within the CMS. Please note, this path does **not** have to be web accessible.
-    * `DJANGO_MD_CMS_ROOT = '/var/md_cms_content'`
 * MD_CMS_DEFAULT_FILE: if a path is provided with no file, the default file name to use.
-    * MD_CMS_DEFAULT_FILE = 'index.md'
 * MD_CMS_EDIT_SUFFIX: suffix to append to the urlpattern from urls.py to trigger the Pagedown editor.
-    * MD_CMS_EDIT_SUFFIX = 'edit'
+* Example:
+    DJANGO_MD_CMS_ROOT = '/var/md_cms_content'
+    MD_CMS_DEFAULT_FILE = 'index.md'
+    MD_CMS_EDIT_SUFFIX = 'edit'
 
 ## Example 1:
 
