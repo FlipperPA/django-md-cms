@@ -13,11 +13,10 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 * django
 * python-markdown
 * django-pagedown https://github.com/timmyomahony/django-pagedown
-* bleach
 
 ## Installation:
 * Install via pip:
-    * `pip install django-md-cms`
+    * `pip install git+https://github.com/FlipperPA/django-md-cms.git`
 * Add to INSTALLED_APPS in your settings:
     * `INSTALLED_APPS += ('md_cms',)`
 
@@ -26,9 +25,9 @@ Django Markdown CMS: A markdown flat-file based CMS for Django.
 * MD_CMS_DEFAULT_FILE: if a path is provided with no file, the default file name to use.
 * MD_CMS_EDIT_SUFFIX: suffix to append to the urlpattern from urls.py to trigger the Pagedown editor.
 
-Example:
+Settings example:
 
-    DJANGO_MD_CMS_ROOT = '/var/md_cms_content'
+    MD_CMS_ROOT = '/var/md_cms_content'
     MD_CMS_DEFAULT_FILE = 'index.md'
     MD_CMS_EDIT_SUFFIX = 'edit'
 
