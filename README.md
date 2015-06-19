@@ -48,7 +48,8 @@ Then, edit your `uls.py` file, to look something like this:
 
     urlpatterns = [
         url(r'^admin/', include(admin.site.urls)),
-        url(r'^([A-Za-z0-9-/]*)/$', MdCMSView.as_view(), name='pages'),
+        url(r'^([A-Za-z0-9-/]*)/$', MdCMSView.as_view(), name='viewpage'),
+        url(r'^([A-Za-z0-9-/]*)/' + settings.MD_CMS_EDIT_SUFFIX + '$', MdCMSEdit.as_view(), name='editpage'),
     ]
 
 This set of patterns first looks for the Django Admin, then for any HTTP_INFO pattern matching any letter (upper or lowercase), a hyphen ('-'), or a foreward slash ('/'). These will result in the creation of valid system paths and files.
