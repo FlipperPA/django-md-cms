@@ -19,13 +19,12 @@ class MdCMSEdit(FormView):
     form_class = MdCMSForm
 
     def __init__(self):
-        pass
+        print('XXXXXXXXXXXXXXXXX')
 
     def get(self, request, *args, **kwargs):
         m = MdCMSView()
         md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
-        print(md_cms_file)
-        
+        print(md_cms_file + 'YYY')
 
     def form_valid(self, form):
         """
