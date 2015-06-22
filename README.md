@@ -1,26 +1,28 @@
-# Django Markdown CMS (md_cms)
+# Django Markdown CMS (django-md-cms)
+
 Django Markdown CMS: A markdown flat-file based CMS for Django.
 
 ## Objectives:
+
 * To create a flat-file based CMS so content is portable, and easily stored in version control
 * All source content will be in markdown, making it portable / exportable to other formats
-* Plug-and-Play tie-in to Django's cache framework
-* Inherit slug from urls.py to edit or create a new file.
-* Ability to include a markdown file as a fragment within a Django template:
-    * `{% md-cms "about/welcome.md" %}`
+* Inherit slug from HTTP_INFO to edit or create a new file.
 
 ## Dependencies:
+
 * django
 * python-markdown
 * django-pagedown https://github.com/timmyomahony/django-pagedown
 
 ## Installation:
+
 * Install via pip:
     * `pip install git+https://github.com/FlipperPA/django-md-cms.git`
 * Add to INSTALLED_APPS in your settings:
     * `INSTALLED_APPS += ('md_cms',)`
 
 ## Settings:
+
 * MD_CMS_ROOT: the root location of files accessible within the CMS. Please note, this path does **not** have to be web accessible.
 * MD_CMS_DEFAULT_FILE: if a path is provided with no file, the default file name to use.
 * MD_CMS_EDIT_SUFFIX: suffix to append to the urlpattern from urls.py to trigger the Pagedown editor.
@@ -54,7 +56,6 @@ Then, edit your `uls.py` file, to look something like this:
 
 This set of patterns first looks for the Django Admin, then for any HTTP_INFO pattern matching any letter (upper or lowercase), a hyphen ('-'), or a foreward slash ('/'). These will result in the creation of valid system paths and files.
 
-
 ## A Note About URLs: /this-page != /this_page/
 
 Trailing slashes matter in your URLs! The way the logic is constructed is as follows:
@@ -62,3 +63,17 @@ Trailing slashes matter in your URLs! The way the logic is constructed is as fol
 * /this-page will create a file named `DJANGO_MD_CMS_ROOT + '/this-page.md'`
 * /this-page/ will create a directory named `DJANGO_MD_CMS_ROOT + '/this-page/'` and a file named `DJANGO_MD_CMS_ROOT + '/this-page/index.md'`
 
+## Roadmap
+
+### 0.2
+
+* Ability to include a markdown file as a fragment within a Django template:
+    * `{% md-cms "about/welcome.md" %}`
+
+### 0.3
+
+* JSON metadata
+
+### 0.4
+
+* Plug-and-Play tie-in to Django's cache framework
