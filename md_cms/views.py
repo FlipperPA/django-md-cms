@@ -21,11 +21,25 @@ class MdCMSEdit(FormView):
     def __init__(self):
         pass
 
-    def get(self, request, *args, **kwargs):
+    def get1(self, request, *args, **kwargs):
         m = MdCMSView()
         md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
 
         return HttpResponse(md_cms_file)
+
+    def get_initial(self, *args, **kwargs):
+        """
+        Returns the initial data to use for the editable form.
+        """
+
+        initial = super(MdCMSEdit, self).get_initial()
+
+        m = MdCMSView()
+        md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
+
+        initial['md_cms_form'] = m.get_md_cms_file_content(md_cms_file, htmlify=False)
+
+        return initial
 
     def form_valid(self, form):
         """
@@ -70,16 +84,22 @@ class MdCMSView(TemplateView):
 
         return md_cms_file
 
-    def get_md_cms_file_content(self, md_cms_file):
+    def get_md_cms_file_content(self, md_cms_file, htmlify = True):
         try:
             # The file already exists
             with open(md_cms_file, 'r') as f:
-                return markdown(f.read())
+                markdown_text = f.read()
+
+            if(htmlify):
+                markdown_text = markdown(markdown_text)
+
+            return markdown_text
+
         except:
             # The file does not exist
             return False
 
-    def create_md_cms_file(self, md_cms_file):
+    def create_md_cms_file(self, md_cms_file, htmlify = True):
         """
         Create the appropriate directories if necessary given the md_cms_file path, and
         create the new file with expanding PATH_INFO as a H1.
@@ -93,7 +113,10 @@ class MdCMSView(TemplateView):
         with open(md_cms_file, "w") as f:
             f.write(markdown_text)
 
-        return markdown(markdown_text)
+        if(htmlify):
+            markdown_text = markdown(markdown_text)
+
+        return markdown_text
 
     def get_context_data(self, **kwargs):
         context = super(MdCMSView, self).get_context_data(**kwargs)
