@@ -76,4 +76,8 @@ Trailing slashes matter in your URLs! The way the logic is constructed is as fol
 
 ### 0.4
 
+* Allow file types to be included for download alongside content.
+
+### 0.5
+
 * Plug-and-Play tie-in to Django's cache framework

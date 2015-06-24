@@ -21,12 +21,6 @@ class MdCMSEdit(FormView):
     def __init__(self):
         pass
 
-    def get1(self, request, *args, **kwargs):
-        m = MdCMSView()
-        md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
-
-        return HttpResponse(md_cms_file)
-
     def get_initial(self, *args, **kwargs):
         """
         Returns the initial data to use for the editable form.
