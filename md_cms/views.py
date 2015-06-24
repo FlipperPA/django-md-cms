@@ -1,7 +1,7 @@
 import os, re
 
 from django.conf import settings
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
@@ -24,8 +24,8 @@ class MdCMSEdit(FormView):
     def get(self, request, *args, **kwargs):
         m = MdCMSView()
         md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
-        print(md_cms_file)
-        
+
+        return HttpResponse(md_cms_file)
 
     def form_valid(self, form):
         """
@@ -35,7 +35,7 @@ class MdCMSEdit(FormView):
 
         # Write file here
 
-        return super(MdCMSView, self).form_valid(form)
+        return super(MdCMSEdit, self).form_valid(form)
 
 
 class MdCMSView(TemplateView):
@@ -55,13 +55,18 @@ class MdCMSView(TemplateView):
         if path_info is None:
             path_info = self.request.META['PATH_INFO']
 
+        # Location on the file system
         md_cms_file = settings.MD_CMS_ROOT + path_info
 
+        # Remove edit suffix if we're in edit mode.
         if(md_cms_file.endswith(settings.MD_CMS_EDIT_SUFFIX)):
-            md_cms_file = md_cms_file[:len(settings.MD_CMS_EDIT_SUFFIX)]
+            md_cms_file = md_cms_file[:len(settings.MD_CMS_EDIT_SUFFIX) * -1]
 
+        # Append appropriate file extension, or default file if path.
         if(md_cms_file[-1:] == '/'):
             md_cms_file += settings.MD_CMS_DEFAULT_FILE
+        else:
+            md_cms_file += '.md'
 
         return md_cms_file
 
