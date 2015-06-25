@@ -15,7 +15,7 @@ class MdCMSEdit(FormView):
     Create or Update and existing page using the Pagedown editor.
     """
 
-    template_name = 'edit.html'
+    template_name = 'md_cms/edit.html'
     form_class = MdCMSForm
 
     def __init__(self):
@@ -49,7 +49,7 @@ class MdCMSEdit(FormView):
 class MdCMSView(TemplateView):
     """ Render a Markdown file as HTML within a Django template. """
 
-    template_name = "index.html"
+    template_name = "md_cms/index.html"
 
     def __init__(self):
         pass
