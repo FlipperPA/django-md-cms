@@ -1,0 +1,20 @@
+<!DOCTYPE html5>
+<html>
+    <head>
+        {{ form.media }}
+	{% load bootstrap3 %}
+	{% bootstrap_css %}
+    </head>
+    <body>
+        <form action="" method="POST">
+	  {% csrf_token %}
+	  {% bootstrap_form form %}
+	  {% buttons %}
+          <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "star" %} Submit
+          </button>
+	  {% endbuttons %}
+
+        </form>
+    </body>
+</html>
