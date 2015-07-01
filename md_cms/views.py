@@ -8,7 +8,6 @@ from django.views.generic.edit import FormView
 from markdown import markdown
 from md_cms.forms import MdCMSForm
 
-from pprint import pprint
 
 class MdCMSEdit(FormView):
     """
@@ -35,6 +34,10 @@ class MdCMSEdit(FormView):
 
         return initial
 
+    def get_success_url(self):
+        # Redirect to previous url
+        return self.request.META.get('HTTP_REFERER', None)
+
     def form_valid(self, form):
         """
         FORM is valid, given the definition.
@@ -42,6 +45,7 @@ class MdCMSEdit(FormView):
         """
 
         # Write file here
+        print(form)
 
         return super(MdCMSEdit, self).form_valid(form)
 
