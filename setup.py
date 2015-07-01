@@ -18,7 +18,7 @@ setup(
     url='https://github.com/FlipperPA/django-md-cms',
     author='Timothy Allen',
     author_email='tim@pyphilly.org',
-    install_required=[
+    install_requires=[
         'django-pagedown==0.1.0',
         'Markdown==2.6.2',
     ],
