@@ -30,7 +30,7 @@ class MdCMSEdit(FormView):
         m = MdCMSView()
         md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
 
-        initial['md_cms_form'] = m.get_md_cms_file_content(md_cms_file, htmlify=False)
+        initial['md_cms_textarea'] = m.get_md_cms_file_content(md_cms_file, htmlify=False)
 
         return initial
 
@@ -44,9 +44,17 @@ class MdCMSEdit(FormView):
         Write the file,  and return an HttpResponse.
         """
 
-        # Write file here
-        print(form)
+#        messages.info(
+#            self.request,
+#            "You have successfully changed your email notifications"
+#        )
 
+        # Write file here
+        # FIX ME: Pass self.request to the FORM, and let is handle file / path logic
+        print(form['md_cms_textarea'])
+        m = MdCMSView()
+        md_cms_file = m.get_md_cms_file(self.request.META['PATH_INFO'])
+        
         return super(MdCMSEdit, self).form_valid(form)
 
 
