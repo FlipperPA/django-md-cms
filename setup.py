@@ -20,7 +20,7 @@ setup(
     author_email='tim@pyphilly.org',
     install_requires=[
         'django-pagedown==0.1.0',
-        'Markdown==2.6.2',
+        'Markdown==3.8.1',
     ],
     classifiers=[
         'Environment :: Web Environment',
